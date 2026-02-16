@@ -1,0 +1,6 @@
+[submodule "build/noshellkit"]
+	path = build/noshellkit
+	url = https://<redacted>/noshellkit/
+[submodule "Manalyze"]
+	path = Manalyze
+	url = https://github.com/JusticeRage/Manalyze.git
