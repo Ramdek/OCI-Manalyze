@@ -9,9 +9,12 @@ else
 endif
 
 multiarch_rule = $(filter multiarch-image.%,$(MAKECMDGOALS))
+push_rule = $(filter push.%,$(MAKECMDGOALS))
 
 ifneq ($(multiarch_rule),)
 	override TAG = $(multiarch_rule:multiarch-image.%=%)
+else ifneq ($(push_rule),)
+	override TAG = $(push_rule:push.%=%)
 else
 	TAG ?= dev
 endif
@@ -41,6 +44,18 @@ manifest:
 $(platforms): image.%:
 	$(OCI_CMD) build --platform linux/$* -t $(IMAGE_NAME):$(TAG)-$* --manifest $(IMAGE_NAME):$(TAG) .
 	@touch image.$*
+
+push.%:
+	@[[ "$(TAG)" != dev ]] \
+		|| ( echo "Won't push default image name !"; exit 1 )
+	@echo "Pushing $(IMAGE_NAME):$(TAG) to ghcr.io"
+	@read -p "Enter username: " username; \
+	read -sp "Enter token: " token; \
+	echo ; \
+	echo "$${token}" | $(OCI_CMD) login ghcr.io -u $${username} --password-stdin
+
+	$(OCI_CMD) manifest push --all $(IMAGE_NAME):$(TAG) \
+	"docker://ghcr.io/$(IMAGE_NAME):$(TAG)"
 
 submodules:
 	git submodule init
