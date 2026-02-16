@@ -25,6 +25,8 @@ _clear_bad_format_yara_rules() {
 
 	local rule_names_file="$( mktemp )"
 
+	printf "%s\n" "Removing bad format yara rules"
+
 	manalyze -p clamav "${MALWARE_BIN}" 2>&1 | \
 		grep 'Error: \[Yara compiler\]' | \
 		grep -Eo '\([0-9]*\)' | \
@@ -33,7 +35,7 @@ _clear_bad_format_yara_rules() {
 			local rule=""
 			rule="$( _find_rule_name_with_line "${line}" )"
 
-			printf "rule on line %s is '%s'" "${line}" "${rule}"
+			printf "rule on line %s is '%s'\n" "${line}" "${rule}"
 			echo "${rule}" >> "${rule_names_file}"
 		done
 
@@ -56,14 +58,17 @@ _manalyze_distroless() {
 
 _build_manalyze() {
 
+	printf "%s\n" "Building Manalyze"
+
 	(
 		cd Manalyze
 		cmake .
 		make -j 5
 
-		# Generate clamav signatures
+		printf "%s\n" "Generating clamav signatures"
 		/Manalyze/bin/yara_rules/update_clamav_signatures.py
 
+		printf "%s\n" "Removing python files (cache & bin utils)"
 		rm -rf /Manalyze/bin/yara_rules/__pycache__
 
 		rm /Manalyze/bin/attack.py
@@ -73,6 +78,12 @@ _build_manalyze() {
 
 		make install
 	)
+}
+
+_init_yara_cache() {
+
+	printf "%s\n" "Building application cache (blank run)"
+	manalyze -p all "${MALWARE_BIN}" >/dev/null
 }
 
 manalyze_install() {
@@ -90,8 +101,7 @@ manalyze_install() {
 
 	_clear_bad_format_yara_rules
 
-	# Init yara cache
-	manalyze -p all "${MALWARE_BIN}"
+	_init_yara_cache
 
 	_manalyze_distroless
 }
