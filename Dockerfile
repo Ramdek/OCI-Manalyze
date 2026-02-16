@@ -5,6 +5,7 @@ FROM scratch AS scratch-labels
 
 LABEL org.opencontainers.image.authors="0xRamdek@protonmail.com"
 LABEL org.opencontainers.image.description="Manalyze wrapper image"
+LABEL org.opencontainers.image.source = "https://github.com/Ramdek/OCI-Manalyze"
 
 
 #
