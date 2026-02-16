@@ -10,19 +10,25 @@ The image comes prepackaged with yara rules free of errors and precompiled.
 Choose your favourite container management tool. *(podman will be used in the
 examples)*
 
+The image can be pulled like this:
+
+```
+podman pull ghcr.io/ramdek/manalyze:latest
+```
+
 ### Single file analysis
 
 By default, the container uses the following flags `-p all -o json`.  
 It scans the file under `/binary` inside of the container.
 
 ```
-podman run -it --rm -v /path/to/pe/binary:/binary Ramdek/manalyze
+podman run -it --rm -v /path/to/pe/binary:/binary ghcr.io/ramdek/manalyze
 ```
 
 You can change default behaviour by calling the `manalyze` binary.
 
 ```
-podman run -it --rm -v /path/to/pe/binary:/other-binary Ramdek/manalyze manalyze -p all /other-binary
+podman run -it --rm -v /path/to/pe/binary:/other-binary ghcr.io/ramdek/manalyze manalyze -p all /other-binary
 ```
 
 ### Directory analysis
@@ -30,7 +36,7 @@ podman run -it --rm -v /path/to/pe/binary:/other-binary Ramdek/manalyze manalyze
 It is possible to scan PE files in a directory.
 
 ```
-podman run -it --rm -v /path/to/pe/directory:/binaries Ramdek/manalyze manalyze -p all -r /binaries
+podman run -it --rm -v /path/to/pe/directory:/binaries ghcr.io/ramdek/manalyze manalyze -p all -r /binaries
 ```
 
 ## Build (not yet)
