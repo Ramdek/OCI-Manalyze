@@ -46,8 +46,8 @@ _clear_bad_format_yara_rules() {
 
 _manalyze_distroless() {
 
+	cp_folder_to_distroless /etc/ssl
 	cp_folder_to_distroless /usr/bin
-	cp_folder_to_distroless /usr/local/bin/manalyze
 	cp_folder_to_distroless /usr/local/share/manalyze
 	cp_folder_to_distroless /usr/local/etc/manalyze
 	cp_folder_to_distroless /root/.cache
@@ -58,6 +58,17 @@ _manalyze_distroless() {
 
 	cp /build/runtime/manalyze /usr/local/bin/manalyze
 	cp_files_to_distroless "/usr/local/bin/manalyze"
+
+	cp_files_to_distroless "/etc/services"
+
+	cp_files_to_distroless \
+		"/usr/local/lib/manalyze/plugins/libplugin_virustotal.so"
+	cp_files_to_distroless \
+		"/usr/lib/libssl.so.3"
+	cp_files_to_distroless \
+		"/usr/lib/libcrypto.so.3"
+	cp_files_to_distroless \
+		"/usr/local/lib/manalyze/plugins/libplugin_authenticode.so"
 }
 
 _build_manalyze() {
