@@ -39,10 +39,23 @@ It is possible to scan PE files in a directory.
 podman run -it --rm -v /path/to/pe/directory:/binaries ghcr.io/ramdek/manalyze manalyze -p all -r /binaries
 ```
 
+### VirusTotal
+
+The image supports using the VirusTotal plugin.  
+`VIRUS_TOTAL_API_KEY` environment variable should be filled to use it.
+
+```
+podman run -it --rm -e VIRUS_TOTAL_API_KEY=xxxx -v /path/to/pe/binary:/binary ghcr.io/ramdek/manalyze
+```
+
 ## Build (not yet)
+
+> The `noshellkit` submodule is not yet available !
 
 You can use the Makefile to build the image:
 
 ```sh
 make
 ```
+
+The image `ramdek/manalyze:dev` will then be built.
