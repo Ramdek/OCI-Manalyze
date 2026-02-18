@@ -52,8 +52,12 @@ _manalyze_distroless() {
 	cp_folder_to_distroless /usr/local/etc/manalyze
 	cp_folder_to_distroless /root/.cache
 
+	mv /usr/local/bin/manalyze /usr/local/bin/manalyze.bin
 	add_binaries_and_libs \
-		manalyze
+		manalyze.bin
+
+	cp /build/runtime/manalyze /usr/local/bin/manalyze
+	cp_files_to_distroless "/usr/local/bin/manalyze"
 }
 
 _build_manalyze() {
