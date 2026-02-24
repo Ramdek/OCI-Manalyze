@@ -11,22 +11,33 @@ ENV VIRUS_TOTAL_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 #
-# Build
+# Dev
 #
 
-FROM alpine:${ALPINE_VERSION} AS build
+FROM alpine:${ALPINE_VERSION} AS dev
 
 COPY Manalyze /Manalyze
 COPY build /build
 
 RUN /build/global-install.sh
 
+CMD ["/entrypoint"]
+
+
+#
+# Build
+#
+
+FROM dev AS build
+
+RUN /build/global-install.sh distroless
+
 
 #
 # Final image
 #
 
-FROM scratch-labels
+FROM scratch-labels AS final
 
 COPY --from=build /distroless_fs /
 
