@@ -16,9 +16,15 @@ source "${script_dir}/noshellkit/noshellkit.sh"
 
 main() {
 
-	execute_install manalyze_install
-	add_binaries_and_libs /bin/busybox
-	add_default_alpine
+	local arg="${1:-}"
+
+	if [[ "${arg}" == "distroless" ]]; then
+		execute_install manalyze_distroless
+		add_binaries_and_libs /bin/busybox
+		add_default_alpine
+	else
+		execute_install manalyze_install
+	fi
 }
 
 main "$@"
