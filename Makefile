@@ -1,4 +1,5 @@
 IMAGE_NAME = ramdek/manalyze
+TARGET ?= final
 
 platforms = image.amd64 image.arm64
 
@@ -30,7 +31,7 @@ clean:
 	$(OCI_CMD) manifest rm $(IMAGE_NAME):$(TAG)
 
 image: submodules
-	$(OCI_CMD) build -t $(IMAGE_NAME):$(TAG) .
+	$(OCI_CMD) build --target $(TARGET) -t $(IMAGE_NAME):$(TAG) .
 
 multiarch-image.%: submodules manifest image.amd64 image.arm64
 	@touch $@
@@ -42,7 +43,7 @@ manifest:
 	@touch $@
 
 $(platforms): image.%:
-	$(OCI_CMD) build --platform linux/$* -t $(IMAGE_NAME):$(TAG)-$* --manifest $(IMAGE_NAME):$(TAG) .
+	$(OCI_CMD) build --target $(TARGET) --platform linux/$* -t $(IMAGE_NAME):$(TAG)-$* --manifest $(IMAGE_NAME):$(TAG) .
 	@touch image.$*
 
 push.%:
