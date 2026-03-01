@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.23.3
+ARG UBUNTU_VERSION=25.04
 
 
 FROM scratch AS scratch-labels
@@ -14,7 +14,7 @@ ENV VIRUS_TOTAL_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 # Dev
 #
 
-FROM alpine:${ALPINE_VERSION} AS dev
+FROM ubuntu:${UBUNTU_VERSION} AS dev
 
 COPY Manalyze /Manalyze
 COPY build /build

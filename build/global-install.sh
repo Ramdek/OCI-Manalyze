@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # Author:   Jonathan <jonathan.sling@isen-ouest.yncrea.fr>
 #

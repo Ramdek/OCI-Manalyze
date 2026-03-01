@@ -66,6 +66,8 @@ _build_manalyze() {
 
 		make install
 	)
+
+	ldconfig
 }
 
 _init_yara_cache() {
@@ -76,13 +78,16 @@ _init_yara_cache() {
 
 manalyze_install() {
 
-	apk add \
+	apt update
+
+	DEBIAN_FRONTEND=noninteractive apt install -y \
 		git \
 		python3 \
-		py3-requests \
-		boost-dev \
-		openssl-dev \
-		build-base \
+		python3-requests \
+		libboost-dev \
+		libboost-system-dev \
+		libssl-dev \
+		build-essential \
 		cmake
 
 	_build_manalyze
