@@ -58,6 +58,12 @@ push.%:
 	$(OCI_CMD) manifest push --all $(IMAGE_NAME):$(TAG) \
 	"docker://ghcr.io/$(IMAGE_NAME):$(TAG)"
 
+.PHONY: seek_bad_yara_rules
+seek_bad_yara_rules:
+	@$(OCI_CMD) run -it --rm -v ./Manalyze:/Manalyze -v ./build:/build alpine \
+		sh -c "/build/global-install.sh seek_malformatted_yara_rules"
+	@rm -r  Manalyze/bin/yara_rules/__pycache__/
+
 submodules:
 	git submodule init
 	git submodule update
