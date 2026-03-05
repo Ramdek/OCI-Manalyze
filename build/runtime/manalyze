@@ -4,4 +4,4 @@ sed -Ei \
 	"s/x{30,}+/${VIRUS_TOTAL_API_KEY}/" \
 	/usr/local/etc/manalyze/manalyze.conf
 
-exec manalyze.bin $@
+manalyze.bin $@
