@@ -21,7 +21,19 @@ else
 endif
 
 .PHONY: all
-all: image
+all: help
+
+.PHONY: help
+help:
+	@echo "Available targets:"
+	@echo "    image                  build image for current platform"
+	@echo "    image.(platform)       build image for given platform (amd64/arm64)"
+	@echo "    multiarch-image.(tag)  build multi-architecture image for given tag"
+	@echo "    push.(tag)             push multi-architecture image to github registry"
+	@echo "    seek_bad_yara_rules    list malformatted yara rules"
+	@echo "Available make variables:"
+	@echo "    TAG         image tag (default: dev)"
+	@echo "    IMAGE_NAME  image name (default: ramdek/manalyze)"
 
 .PHONY: clean
 clean:
