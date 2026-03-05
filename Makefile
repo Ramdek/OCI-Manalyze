@@ -9,6 +9,8 @@ else
 	OCI_CMD = podman
 endif
 
+OCI_OPT ?= --no-cache
+
 multiarch_rule = $(filter multiarch-image.%,$(MAKECMDGOALS))
 push_rule = $(filter push.%,$(MAKECMDGOALS))
 
@@ -32,8 +34,10 @@ help:
 	@echo "    push.(tag)             push multi-architecture image to github registry"
 	@echo "    seek_bad_yara_rules    list malformatted yara rules"
 	@echo "Available make variables:"
-	@echo "    TAG         image tag (default: dev)"
 	@echo "    IMAGE_NAME  image name (default: ramdek/manalyze)"
+	@echo "    OCI_CMD     Container command to use (podman/docker)"
+	@echo "    OCI_OPT     Container build option (default --no-cache)"
+	@echo "    TAG         image tag (default: dev)"
 
 .PHONY: clean
 clean:
@@ -43,7 +47,7 @@ clean:
 	$(OCI_CMD) manifest rm $(IMAGE_NAME):$(TAG)
 
 image: submodules
-	$(OCI_CMD) build --target $(TARGET) -t $(IMAGE_NAME):$(TAG) .
+	$(OCI_CMD) build --target $(TARGET) -t $(IMAGE_NAME):$(TAG) $(OCI_OPT) .
 
 multiarch-image.%: submodules manifest image.amd64 image.arm64
 	@touch $@
@@ -55,7 +59,7 @@ manifest:
 	@touch $@
 
 $(platforms): image.%:
-	$(OCI_CMD) build --target $(TARGET) --platform linux/$* -t $(IMAGE_NAME):$(TAG)-$* --manifest $(IMAGE_NAME):$(TAG) .
+	$(OCI_CMD) build --target $(TARGET) --platform linux/$* -t $(IMAGE_NAME):$(TAG)-$* --manifest $(IMAGE_NAME):$(TAG) $(OCI_OPT) .
 	@touch image.$*
 
 push.%:
