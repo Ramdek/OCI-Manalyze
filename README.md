@@ -48,6 +48,12 @@ The image supports using the VirusTotal plugin.
 podman run -it --rm -e VIRUS_TOTAL_API_KEY=xxxx -v /path/to/pe/binary:/binary ghcr.io/ramdek/manalyze
 ```
 
+## Reuse this image
+
+The image is built distroless by default.  
+If you wish to build another image on top of this one, use images with tag
+suffixed by `-dev`. *(i.e. `latest-dev`)*
+
 ## Build (not yet)
 
 > The `noshellkit` submodule is not yet available !
