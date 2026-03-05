@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## Fixed
+
+- Ctrl+C not being catched when calling manalyze binary from run command.
+- Manalyze unbound regexp (issue 65 on original repository).
+
 ## [0.3.0] - 2026-24-02
 
 ### Added
