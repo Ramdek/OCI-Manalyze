@@ -65,3 +65,16 @@ make
 ```
 
 The image `ramdek/manalyze:dev` will then be built.
+
+### Yara rules
+
+Some yara rules can be malformatted, failing the image build.  
+Rules to be removed during build time are located in `build/malformatted_rules`.
+
+Malformatted rules can be listed like so:
+
+```sh
+make seek_bad_yara_rules
+```
+
+> Other targets in the Makefile are for distribution purposes.
