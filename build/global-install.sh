@@ -22,7 +22,14 @@ main() {
 		execute_install manalyze_distroless
 		add_binaries_and_libs /bin/busybox
 		add_default_alpine
+	elif [[ "${arg}" == "seek_malformatted_yara_rules" ]]; then
+
+		export KEEP_PYTHON=true
+
+		execute_install manalyze_compile
+		execute_install seek_malformatted_yara_rules
 	else
+		execute_install manalyze_compile
 		execute_install manalyze_install
 	fi
 }
