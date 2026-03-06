@@ -27,19 +27,19 @@ all: help
 
 .PHONY: help
 help:
-	@echo "Available targets:"
-	@echo "    clean                  remove existing manifest for IMAGE_NAME and TAG"
-	@echo "    image                  build image for current platform"
-	@echo "    image.(platform)       build image for given platform (amd64/arm64)"
-	@echo "    multiarch-image.(tag)  build multi-architecture image for given tag"
-	@echo "    push.(tag)             push multi-architecture image to github registry"
-	@echo "    seek_bad_yara_rules    list malformatted yara rules"
-	@echo "Available make variables:"
-	@echo "    IMAGE_NAME  image name (default: ramdek/manalyze)"
-	@echo "    OCI_CMD     Container command to use (podman/docker)"
-	@echo "    OCI_OPT     Container build option (default --no-cache)"
-	@echo "    REGISTRY    Container registry domain name to push to"
-	@echo "    TAG         image tag (default: dev)"
+	@echo -e "Available targets:\n\
+	    clean                  remove existing manifest for IMAGE_NAME and TAG\n\
+	    image                  build image for current platform\n\
+	    image.(platform)       build image for given platform (amd64/arm64)\n\
+	    multiarch-image.(tag)  build multi-architecture image for given tag\n\
+	    push.(tag)             push multi-architecture image to github registry\n\
+	    seek_bad_yara_rules    list malformatted yara rules\n\
+	Available make variables:\n\
+	    IMAGE_NAME  image name (default: ramdek/manalyze)\n\
+	    OCI_CMD     Container command to use (podman/docker)\n\
+	    OCI_OPT     Container build option (default --no-cache)\n\
+	    REGISTRY    Container registry domain name to push to\n\
+	    TAG         image tag (default: dev)"
 
 .PHONY: clean
 clean:
