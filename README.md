@@ -1,5 +1,9 @@
 # OCI-Manalyze
 
+![Version](https://img.shields.io/github/v/tag/ramdek/oci-manalyze?style=flat-square&label=version&color=green)
+![Latest size](https://img.shields.io/badge/Image%20size%20(latest)-264.94MiB-blue)
+![Latest-dev size](https://img.shields.io/badge/Image%20size%20(latest--dev)-564.66MiB-blue)
+
 An OCI container wrapper for [Manalyze](https://github.com/JusticeRage/Manalyze)
 tool.
 
