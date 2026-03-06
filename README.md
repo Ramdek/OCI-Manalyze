@@ -61,7 +61,7 @@ suffixed by `-dev`. *(i.e. `latest-dev`)*
 You can use the Makefile to build the image:
 
 ```sh
-make
+make image
 ```
 
 The image `ramdek/manalyze:dev` will then be built.
