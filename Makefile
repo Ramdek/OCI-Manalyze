@@ -28,6 +28,7 @@ all: help
 .PHONY: help
 help:
 	@echo "Available targets:"
+	@echo "    clean                  remove existing manifest for IMAGE_NAME and TAG"
 	@echo "    image                  build image for current platform"
 	@echo "    image.(platform)       build image for given platform (amd64/arm64)"
 	@echo "    multiarch-image.(tag)  build multi-architecture image for given tag"
@@ -37,6 +38,7 @@ help:
 	@echo "    IMAGE_NAME  image name (default: ramdek/manalyze)"
 	@echo "    OCI_CMD     Container command to use (podman/docker)"
 	@echo "    OCI_OPT     Container build option (default --no-cache)"
+	@echo "    REGISTRY    Container registry domain name to push to"
 	@echo "    TAG         image tag (default: dev)"
 
 .PHONY: clean
@@ -72,17 +74,18 @@ $(platforms): image.%:
 	$(OCI_CMD) build --target $(TARGET) --platform linux/$* -t $(IMAGE_NAME):$(TAG)-$* --manifest $(IMAGE_NAME):$(TAG) $(OCI_OPT) .
 	@touch image.$*
 
+push.%: REGISTRY ?= ghcr.io
 push.%:
 	@[[ "$(TAG)" != dev ]] \
 		|| ( echo "Won't push default image name !"; exit 1 )
-	@echo "Pushing $(IMAGE_NAME):$(TAG) to ghcr.io"
+	@echo "Pushing $(IMAGE_NAME):$(TAG) to $(REGISTRY)"
 	@read -p "Enter username: " username; \
 	read -sp "Enter token: " token; \
 	echo ; \
-	echo "$${token}" | $(OCI_CMD) login ghcr.io -u $${username} --password-stdin
+	echo "$${token}" | $(OCI_CMD) login $(REGISTRY) -u $${username} --password-stdin
 
 	$(OCI_CMD) manifest push --all $(IMAGE_NAME):$(TAG) \
-	"docker://ghcr.io/$(IMAGE_NAME):$(TAG)"
+	"docker://$(REGISTRY)/$(IMAGE_NAME):$(TAG)"
 
 .PHONY: seek_bad_yara_rules
 seek_bad_yara_rules:
