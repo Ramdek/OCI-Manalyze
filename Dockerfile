@@ -6,7 +6,7 @@ FROM scratch AS scratch-labels
 LABEL org.opencontainers.image.authors="0xRamdek@protonmail.com"
 LABEL org.opencontainers.image.description="Manalyze wrapper image"
 LABEL org.opencontainers.image.source = "https://github.com/Ramdek/OCI-Manalyze"
-LABEL org.opencontainers.image.version = "0.3.0"
+LABEL org.opencontainers.image.version = "0.3.1"
 
 ENV VIRUS_TOTAL_API_KEY="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
