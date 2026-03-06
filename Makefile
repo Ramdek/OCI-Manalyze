@@ -55,7 +55,19 @@ multiarch-image.%: submodules manifest image.amd64 image.arm64
 manifest:
 	@[ -n "$(TAG)" ] \
 		|| ( echo "TAG variable must be set for this rule"; exit 1 )
-	$(OCI_CMD) manifest create $(IMAGE_NAME):$(TAG)
+	$(OCI_CMD) manifest create \
+		--annotation="org.opencontainers.image.description=$$( \
+				grep -o 'description=".*"' Dockerfile | sed -E 's/description=|"//g' \
+			)" \
+		--annotation="org.opencontainers.image.base.name=$(if $(filter $(TARGET),dev),alpine,scratch)" \
+		--annotation="org.opencontainers.image.created=$$( date -u -Is | sed "s/+.*/Z/" )" \
+		--annotation="org.opencontainers.image.revision=$$( git rev-parse HEAD )" \
+		--annotation="org.opencontainers.image.source=https://github.com/Ramdek/OCI-Manalyze.git#$$( git rev-parse HEAD )" \
+		--annotation="org.opencontainers.image.url=https://ghcr.io/ramdek/manalyze" \
+		--annotation="org.opencontainers.image.version=$$( \
+				grep -o 'version=".*"' Dockerfile | sed -E 's/version=|"//g' \
+			)" \
+		$(IMAGE_NAME):$(TAG)
 	@touch $@
 
 $(platforms): image.%:
