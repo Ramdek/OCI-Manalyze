@@ -64,9 +64,7 @@ manifest:
 		--annotation="org.opencontainers.image.revision=$$( git rev-parse HEAD )" \
 		--annotation="org.opencontainers.image.source=https://github.com/Ramdek/OCI-Manalyze.git#$$( git rev-parse HEAD )" \
 		--annotation="org.opencontainers.image.url=https://ghcr.io/ramdek/manalyze" \
-		--annotation="org.opencontainers.image.version=$$( \
-				grep -o 'version=".*"' Dockerfile | sed -E 's/version=|"//g' \
-			)" \
+		--annotation="org.opencontainers.image.version=$(TAG)"
 		$(IMAGE_NAME):$(TAG)
 	@touch $@
 
