@@ -4,3 +4,7 @@
 [submodule "Manalyze"]
 	path = Manalyze
 	url = https://github.com/JusticeRage/Manalyze.git
+[submodule "makefiles"]
+	path = makefiles
+	url = https://git.norrinrad.com/makefiles
+	branch = oci-image
