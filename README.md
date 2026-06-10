@@ -58,9 +58,7 @@ The image is built distroless by default.
 If you wish to build another image on top of this one, use images with tag
 suffixed by `-dev`. *(i.e. `latest-dev`)*
 
-## Build (not yet)
-
-> The `noshellkit` submodule is not yet available !
+## Build
 
 You can use the Makefile to build the image:
 
