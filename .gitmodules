@@ -1,10 +1,10 @@
 [submodule "build/noshellkit"]
 	path = build/noshellkit
-	url = https://<redacted>/noshellkit/
+	url = https://git.mdek.fr/noshellkit/
 [submodule "Manalyze"]
 	path = Manalyze
 	url = https://github.com/JusticeRage/Manalyze.git
 [submodule "makefiles"]
 	path = makefiles
-	url = https://<redacted>/makefiles
+	url = https://git.mdek.fr/makefiles/
 	branch = oci-image
