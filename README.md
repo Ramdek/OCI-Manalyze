@@ -63,6 +63,7 @@ suffixed by `-dev`. *(i.e. `latest-dev`)*
 You can use the Makefile to build the image:
 
 ```sh
+make submodules
 make image
 ```
 
