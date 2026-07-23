@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.23.3
+ARG ALPINE_VERSION=3.24.1
 
 
 FROM scratch AS scratch-labels
